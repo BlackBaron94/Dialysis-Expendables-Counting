@@ -7,6 +7,7 @@ Created on Fri Mar 15 18:05:09 2024
 
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox as msg
 import sqlite3
 from sqlite3 import Error
 item_list = [["25H", 0], 
@@ -36,17 +37,8 @@ def dbconnect(db_file):
         print(e)
     return conn
 
-def create_table():
-    my_conn = dbconnect('katametrhsh.db') #Δημιουργεί ΔΒ αν δεν υπάρχει
-    sql_query = '''CREATE TABLE IF NOT EXISTS "katametrhsh" (
-	"AA"	INTEGER NOT NULL,
-	"Αντικείμενο"	TEXT [30] NOT NULL,
-	"Ποσότητα"	INTEGER,
-	PRIMARY KEY("AA" AUTOINCREMENT)
-);''' 
-    c = my_conn.cursor()
-    c.execute(sql_query) 
-    my_conn.commit()
+def create_db():
+    my_conn = dbconnect('Καταμέτρηση.db') #Δημιουργεί ΒΔ αν δεν υπάρχει
     my_conn.close()
     return
 
@@ -237,7 +229,36 @@ def emfanishKatametrhshs():
     return
 
 def savePushed():
+    my_conn = dbconnect('Καταμέτρηση.db')
+    if saveWindowEntry.get() == '':
+        msg.showerror(master=saveWindow, 
+                      title='Ειδοποίηση', 
+                      message="Μην καταχωρείτε κενό όνομα!")
+        saveWindowEntry.delete(0,'end')
+        return
+    elif " " in saveWindowEntry.get():
+        msg.showerror(master=saveWindow, 
+                      title='Ειδοποίηση', 
+                      message="Τα κενά δεν επιτρέπονται!")
+        saveWindowEntry.delete(0,'end')
+        return
+    sql_query = '''CREATE TABLE "'''+str(saveWindowEntry.get())+'''" (
+	"Αντικείμενο"	TEXT [30] NOT NULL,
+	"Ποσότητα"	INTEGER NOT NULL CHECK("Ποσότητα" >= 0),
+	PRIMARY KEY("Αντικείμενο")
+);''' 
+    c = my_conn.cursor()
+    
+    try:
+        c.execute(sql_query) 
+    except sqlite3.OperationalError:
+        msg.showerror(master=saveWindow, 
+                      title='Ειδοποίηση', 
+                      message="Το όνομα που καταχωρήσατε υπάρχει ήδη!")
+    
+    my_conn.commit()
     saveWindowEntry.delete(0,'end')
+    return
 
 def save():
     global saveWindow
@@ -268,7 +289,7 @@ def save():
 def load():
     pass
 
-create_table()
+create_db()
 
 mainWindow = tk.Tk()
 mainWindow.geometry('600x800+650+150')
