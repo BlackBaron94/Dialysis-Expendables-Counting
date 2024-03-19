@@ -127,13 +127,16 @@ def x125CAPushed():
     return
     
 def enarkshKatametrhshs():
+    
     global enarkshKatametrhshsWindow
     enarkshKatametrhshsWindow = tk.Toplevel(mainWindow)
     enarkshKatametrhshsWindow.geometry("425x400+770+220")
     enarkshKatametrhshsWindow.title("Καταμέτρηση")
+    
     global myStringVar
     myStringVar = tk.StringVar()
     myStringVar.set("Καμία καταχώρηση")
+    
     tk.Button(enarkshKatametrhshsWindow, 
               text = "25H", 
               font = 'Times 16', 
@@ -228,73 +231,152 @@ def emfanishKatametrhshs():
     new.mainloop()        
     return
 
-def savePushed():
+
+def updateDB(db_state):
     my_conn = dbconnect('Καταμέτρηση.db')
-    if saveWindowEntry.get() == '':
-        msg.showerror(master=saveWindow, 
-                      title='Ειδοποίηση', 
-                      message="Μην καταχωρείτε κενό όνομα!")
-        saveWindowEntry.delete(0,'end')
-        return
-    elif " " in saveWindowEntry.get():
-        msg.showerror(master=saveWindow, 
-                      title='Ειδοποίηση', 
-                      message="Τα κενά δεν επιτρέπονται!")
-        saveWindowEntry.delete(0,'end')
-        return
-    sql_query = '''CREATE TABLE "'''+str(saveWindowEntry.get())+'''" (
-	"Αντικείμενο"	TEXT [30] NOT NULL,
-	"Ποσότητα"	INTEGER NOT NULL CHECK("Ποσότητα" >= 0),
-	PRIMARY KEY("Αντικείμενο")
-);''' 
     c = my_conn.cursor()
-    
-    try:
+    if db_state == 0:        ## Εαν δεν υπάρχει table
+        sql_query = '''CREATE TABLE "ΑποθηκευμένηΚαταμέτρηση" (
+    	"Αντικείμενο"	TEXT [30] NOT NULL,
+    	"Ποσότητα"	INTEGER NOT NULL CHECK("Ποσότητα" >= 0),
+    	PRIMARY KEY("Αντικείμενο")
+    );''' 
         c.execute(sql_query) 
-    except sqlite3.OperationalError:
-        msg.showerror(master=saveWindow, 
-                      title='Ειδοποίηση', 
-                      message="Το όνομα που καταχωρήσατε υπάρχει ήδη!")
-    
+        
+        for i in item_list:
+            sql_query = '''INSERT INTO "ΑποθηκευμένηΚαταμέτρηση" 
+            VALUES ("'''+str(i[0])+'''", '''+str(i[1])+''');'''
+            c.execute(sql_query)
+    else: # Eάν υπάρχει, με μηδενικά ή μη δεδομένα
+        for i in item_list:
+            sql_query= '''UPDATE "ΑποθηκευμένηΚαταμέτρηση" 
+            SET "Ποσότητα" = '''+str(i[1])+'''
+            WHERE "Αντικείμενο" = "'''+str(i[0])+'''";'''
+            c.execute(sql_query)
     my_conn.commit()
-    saveWindowEntry.delete(0,'end')
+    my_conn.close()
+    return
+    
+    
+
+def save_button():
+    db_state = table_empty_check()
+    if db_state == 2:
+        confirmation = msg.askyesno(
+            title='Αποθήκευση Καταμέτρησης', 
+            parent=mainWindow, 
+            message='''Θέλετε σίγουρα να αποθηκεύσετε την καταμέτρηση; 
+Η προηγούμενη καταμέτρηση, θα σβηστεί.''')
+        if not confirmation:
+            msg.showerror(master=mainWindow, 
+                          parent=mainWindow, 
+                          title='Ειδοποίηση', 
+                          message="Η αποθήκευση ακυρώθηκε από τον χρήστη.")
+            return
+    zeros_only= True
+    for i in range(0, len(item_list)):
+        if item_list[i][1] != 0:
+            zeros_only = False
+    if zeros_only:
+        confirmation = msg.askyesno(
+            title='Αποθήκευση Μηδενικής Καταμέτρησης', 
+            parent=mainWindow, 
+            message='''Θέλετε σίγουρα να αποθηκεύσετε τη μηδενική καταμέτρηση;''')
+        if not confirmation:
+            msg.showerror(master=mainWindow, 
+                          parent=mainWindow, 
+                          title='Ειδοποίηση', 
+                          message="Η αποθήκευση ακυρώθηκε από τον χρήστη.")
+            return
+    updateDB(db_state)
+    msg.showinfo(title = 'Επιτυχής Αποθήκευση', 
+                 parent = mainWindow,
+                 message = 'Η καταμέτρηση αποθηκεύτηκε επιτυχώς.')
     return
 
-def save():
-    global saveWindow
-    saveWindow = tk.Toplevel(mainWindow)
-    saveWindow.geometry("550x200+650+450")
-    saveWindow.title('Αποθήκευση Καταμέτρησης')
-    tk.Label(saveWindow, 
-             text='Δώστε το όνομα της καταμέτρησης που θέλετε να αποθηκεύσετε: ', 
-             font = 'Times 14').pack(pady=20)
-    global saveWindowEntry
-    saveWindowEntry = tk.Entry(saveWindow,
-                               justify = 'center', 
-                               font=defaultFont)
-    saveWindowEntry.pack(pady=5)
-    tk.Button(saveWindow, 
-              text='Αποθήκευση', 
-              font='Times 16', 
-              command=savePushed).pack(side='left',
-                                       padx=60)
-    tk.Button(saveWindow, 
-              text='Ακύρωση', 
-              font='Times 16', 
-              command=saveWindow.destroy).pack(side='right',
-                                               padx=60)
+def table_empty_check(): 
+# 0 = Δεν υπάρχει table 
+# 1 = υπάρχει αλλά έχει μηδενικά δεδομένα
+# 2 = υπάρχει κι έχει δεδομένα
+    my_conn = dbconnect('Καταμέτρηση.db')
+    sql_query = '''SELECT * FROM "ΑποθηκευμένηΚαταμέτρηση";'''
+    c = my_conn.cursor()
+    db_contents = []
+    try:
+        db_contents = c.execute(sql_query).fetchall()
+    except sqlite3.OperationalError:
+        db_state = 0
+        my_conn.close()
+        return db_state
+    db_state = 1
+    for i in db_contents:
+        if i[1] != 0:
+            db_state = 2    
+    my_conn.close()
+    return db_state
     
-    saveWindow.mainloop()
 
 def load():
-    pass
+    db_state = table_empty_check()
+    if db_state == 0:
+        msg.showerror(master = mainWindow,
+                      parent = mainWindow,
+                      title = 'Ειδοποίηση',
+                      message = 'Δεν υπάρχουν δεδομένα για φόρτωση.')
+        return
+    
+    zeros_only= True
+    for i in range(0, len(item_list)):
+        if item_list[i][1] != 0:
+            zeros_only = False
+            
+    if not zeros_only:    
+        confirmation = msg.askyesno(
+                title='Φόρτωση Καταμέτρησης', 
+                parent=mainWindow, 
+                message='''Θέλετε σίγουρα να φορτώσετε την αποθηκευμένη καταμέτρηση; 
+Τα δεδομένα της τρέχουσας καταμέτρησης θα σβηστούν.''')
+        if not confirmation:
+            msg.showerror(master=mainWindow, 
+                          parent=mainWindow, 
+                          title='Ειδοποίηση', 
+                          message="Η φόρτωση ακυρώθηκε από τον χρήστη.")
+            return
+
+    my_conn = dbconnect('Καταμέτρηση.db')
+    sql_query = '''SELECT * FROM "ΑποθηκευμένηΚαταμέτρηση";'''
+    c = my_conn.cursor()
+    db_contents = c.execute(sql_query).fetchall()
+    for i in item_list:
+        i[1] = db_contents[item_list.index(i)][1]
+    my_conn.close()
+    if db_state == 1:
+        msg.showinfo(parent = mainWindow,
+                     title = 'Ειδοποίηση',
+                     message = 'Φορτώθηκε μηδενική καταμέτρηση επιτυχώς.')
+    else:
+        msg.showinfo(parent = mainWindow,
+                     title = 'Ειδοποίηση',
+                     message = 'Φορτώθηκε καταμέτρηση επιτυχώς.')
+    return
+        
+
+def reset_pushed():
+    for i in range(0, len(item_list) ):
+        item_list[i][1]=0
+    msg.showinfo(parent = mainWindow,
+                 title = 'Ειδοποίηση',
+                 message = 'Η τρέχουσα καταμέτρηση μηδενίστηκε επιτυχώς.')
+    return
+    
 
 create_db()
 
 mainWindow = tk.Tk()
-mainWindow.geometry('600x800+650+150')
+mainWindow.geometry('600x600+650+150')
 mainWindow.title("Πρόγραμμα Καταμέτρησης Υλικού")
 defaultFont = 'Times 16'
+
 tk.Button(mainWindow,
     text = 'Έναρξη Καταμέτρησης', 
     font = defaultFont, 
@@ -302,7 +384,8 @@ tk.Button(mainWindow,
     relief = 'groove', 
     bd = 10).pack(fill = 'x', 
         padx = 50, 
-        pady = 10)
+        pady = 10)                  
+
 tk.Button(mainWindow, 
           text = "Εμφάνιση Καταμέτρησης", 
           font = defaultFont,
@@ -311,14 +394,26 @@ tk.Button(mainWindow,
           bd = 10).pack(fill = 'x',
               padx = 50,
               pady = 10)   
+
+
+tk.Button(mainWindow, 
+    text = "Μηδενισμός Τρέχουσας Καταμέτρησης",
+    font = defaultFont,
+    command = reset_pushed,
+    relief = 'groove',
+    bd = 10).pack(fill = 'x',
+        padx = 50,
+        pady = 10)
+
 tk.Button(mainWindow, 
           text = "Αποθήκευση Καταμέτρησης", 
           font = defaultFont,
-          command = save,
+          command = save_button,
           relief = 'groove',
           bd = 10).pack(fill = 'x',
               padx = 50,
               pady = 10)   
+
 tk.Button(mainWindow, 
     text = "Φόρτωση Καταμέτρησης",
     font = defaultFont,
@@ -337,6 +432,12 @@ tk.Button(mainWindow,
         padx = 50,
         pady = 10)
 
-
-
+tk.Label(mainWindow, 
+         text='Made by Black Baron', 
+         font = ('Old English Text MT',12),
+         justify='left').pack(side='right')
+                  
+# DIagrafh, epeksergasia katametrhshs (se periptwsh missclick) 
+# & mhdenismos katametrhshs/pediou katametrhshs
+# me antikeimeno ta buttons pushed?
 mainWindow.mainloop()
