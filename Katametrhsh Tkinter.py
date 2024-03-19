@@ -205,15 +205,18 @@ def enarkshKatametrhshs():
 
 
 def printKatametrhsh():
+    # Καταχώρηση εγγραφών στον πίνακα παρουσίασης
     for item in item_list:
         tree.insert('',tk.END,values=item)    
     return
 
 
 def emfanishKatametrhshs():
+    # Νέο παράθυρο
     new = tk.Toplevel(mainWindow)
     new.title("Πίνακας Καταμέτρησης")
     new.geometry("500x800+700+150")
+    # Προετοιμασία για πίνακα παρουσίασης
     style = ttk.Style()
     style.configure("mystyle.Treeview",font=('Times',16),rowheight=30)
     global tree
@@ -226,6 +229,7 @@ def emfanishKatametrhshs():
     tree.column('Ποσότητα', width=50)
     tree.heading('Αντικείμενο', text = 'Αντικείμενο')
     tree.heading('Ποσότητα', text = 'Ποσότητα')
+    # Καλεί τη συνάρτηση για καταχώρηση εγγραφών
     printKatametrhsh()
     tree.pack(fill='both',expand=1)
     new.mainloop()        
@@ -261,22 +265,25 @@ def updateDB(db_state):
 
 def save_button():
     db_state = table_empty_check()
-    if db_state == 2:
+    if db_state == 2: 
+    # Αν η καταχωρημένη καταμέτρηση έχει δεδομένα προειδοποιεί
         confirmation = msg.askyesno(
             title='Αποθήκευση Καταμέτρησης', 
             parent=mainWindow, 
             message='''Θέλετε σίγουρα να αποθηκεύσετε την καταμέτρηση; 
-Η προηγούμενη καταμέτρηση, θα σβηστεί.''')
+Η προηγούμενη καταμέτρηση θα σβηστεί.''')
         if not confirmation:
             msg.showerror(master=mainWindow, 
                           parent=mainWindow, 
                           title='Ειδοποίηση', 
                           message="Η αποθήκευση ακυρώθηκε από τον χρήστη.")
             return
+    # Έλεγχος αν η τρέχουσα καταμέτρηση δεν έχει τιμές
     zeros_only= True
     for i in range(0, len(item_list)):
         if item_list[i][1] != 0:
             zeros_only = False
+    # Επιβεβαίωση αποθήκευσης καταμέτρησης με μηδενικές τιμές
     if zeros_only:
         confirmation = msg.askyesno(
             title='Αποθήκευση Μηδενικής Καταμέτρησης', 
@@ -324,12 +331,12 @@ def load():
                       title = 'Ειδοποίηση',
                       message = 'Δεν υπάρχουν δεδομένα για φόρτωση.')
         return
-    
+    # Έλεγχος αν η τρέχουσα καταμέτρηση δεν έχει τιμές
     zeros_only= True
     for i in range(0, len(item_list)):
         if item_list[i][1] != 0:
             zeros_only = False
-            
+    # Ζητάει επιβεβαίωση απαλοιφής τρέχουσας καταμέτρησης εφόσον περιέχει τιμές
     if not zeros_only:    
         confirmation = msg.askyesno(
                 title='Φόρτωση Καταμέτρησης', 
@@ -350,6 +357,7 @@ def load():
     for i in item_list:
         i[1] = db_contents[item_list.index(i)][1]
     my_conn.close()
+    # Αν φορτώθηκε καταμέτρηση με μηδενικές τιμές
     if db_state == 1:
         msg.showinfo(parent = mainWindow,
                      title = 'Ειδοποίηση',
@@ -369,11 +377,11 @@ def reset_pushed():
                  message = 'Η τρέχουσα καταμέτρηση μηδενίστηκε επιτυχώς.')
     return
     
-
+# Δημιουργία ΒΔ αν δεν υπάρχει
 create_db()
 
 mainWindow = tk.Tk()
-mainWindow.geometry('600x600+650+150')
+mainWindow.geometry('600x500+650+150')
 mainWindow.title("Πρόγραμμα Καταμέτρησης Υλικού")
 defaultFont = 'Times 16'
 
@@ -394,7 +402,6 @@ tk.Button(mainWindow,
           bd = 10).pack(fill = 'x',
               padx = 50,
               pady = 10)   
-
 
 tk.Button(mainWindow, 
     text = "Μηδενισμός Τρέχουσας Καταμέτρησης",
@@ -436,8 +443,5 @@ tk.Label(mainWindow,
          text='Made by Black Baron', 
          font = ('Old English Text MT',12),
          justify='left').pack(side='right')
-                  
-# DIagrafh, epeksergasia katametrhshs (se periptwsh missclick) 
-# & mhdenismos katametrhshs/pediou katametrhshs
-# me antikeimeno ta buttons pushed?
+
 mainWindow.mainloop()
