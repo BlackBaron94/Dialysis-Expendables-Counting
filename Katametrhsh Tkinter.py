@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Mar 15 18:05:09 2024
-
-@author: Equinox
-"""
-
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox as msg
@@ -370,6 +363,29 @@ def load():
         
 
 def reset_pushed():
+    # Έλεγχος αν ο μηδενισμός είναι ανούσιος
+    empty_flag = True
+    for i in range(0,len(item_list)):
+        if item_list[i][1] != 0:
+            empty_flag = False
+            break
+    if empty_flag:
+        msg.showinfo(parent = mainWindow,
+                     title = 'Ειδοποίηση',
+                     message = 'Η τρέχουσα καταμέτρηση είναι ήδη μηδενική.')
+        return
+    
+    confirmation = msg.askyesno(
+                title='Μηδενισμός Καταμέτρησης', 
+                parent=mainWindow, 
+                message='''Θέλετε σίγουρα να μηδενίσετε την τρέχουσα καταμέτρηση; 
+Τα δεδομένα της θα σβηστούν.''')
+    if not confirmation:
+        msg.showerror(master=mainWindow, 
+                      parent=mainWindow, 
+                      title='Ειδοποίηση', 
+                      message="Ο μηδενισμός ακυρώθηκε από τον χρήστη.")
+        return
     for i in range(0, len(item_list) ):
         item_list[i][1]=0
     msg.showinfo(parent = mainWindow,
