@@ -402,7 +402,7 @@ mainWindow.title("Πρόγραμμα Καταμέτρησης Υλικού")
 defaultFont = 'Times 16'
 
 tk.Button(mainWindow,
-    text = 'Έναρξη Καταμέτρησης', 
+    text = 'Έναρξη καταμέτρησης', 
     font = defaultFont, 
     command = enarkshKatametrhshs, 
     relief = 'groove', 
@@ -411,7 +411,7 @@ tk.Button(mainWindow,
         pady = 10)                  
 
 tk.Button(mainWindow, 
-          text = "Εμφάνιση Καταμέτρησης", 
+          text = "Εμφάνιση καταμέτρησης", 
           font = defaultFont,
           command = emfanishKatametrhshs,
           relief = 'groove',
@@ -420,7 +420,7 @@ tk.Button(mainWindow,
               pady = 10)   
 
 tk.Button(mainWindow, 
-    text = "Μηδενισμός Τρέχουσας Καταμέτρησης",
+    text = "Μηδενισμός τρέχουσας καταμέτρησης",
     font = defaultFont,
     command = reset_pushed,
     relief = 'groove',
@@ -429,7 +429,7 @@ tk.Button(mainWindow,
         pady = 10)
 
 tk.Button(mainWindow, 
-          text = "Αποθήκευση Καταμέτρησης", 
+          text = "Αποθήκευση καταμέτρησης", 
           font = defaultFont,
           command = save_button,
           relief = 'groove',
@@ -438,7 +438,7 @@ tk.Button(mainWindow,
               pady = 10)   
 
 tk.Button(mainWindow, 
-    text = "Φόρτωση Καταμέτρησης",
+    text = "Φόρτωση καταμέτρησης",
     font = defaultFont,
     command = load,
     relief = 'groove',
