@@ -336,6 +336,13 @@ def load():
                 parent=mainWindow, 
                 message='''Θέλετε σίγουρα να φορτώσετε την αποθηκευμένη καταμέτρηση; 
 Τα δεδομένα της τρέχουσας καταμέτρησης θα σβηστούν.''')
+        if db_state == 1:
+            confirmation = msg.askyesno(
+                    title='Φόρτωση Μηδενικής Καταμέτρησης', 
+                    parent=mainWindow, 
+                    message='''Προσπαθείτε να φορτώσετε αποθηκευμένη μηδενική 
+καταμέτρηση ενώ η τρέχουσα καταμέτρηση περιέχει δεδομένα. 
+Να γίνει φόρτωση;''')
         if not confirmation:
             msg.showerror(master=mainWindow, 
                           parent=mainWindow, 
@@ -359,6 +366,7 @@ def load():
         msg.showinfo(parent = mainWindow,
                      title = 'Ειδοποίηση',
                      message = 'Φορτώθηκε καταμέτρηση επιτυχώς.')
+        emfanishKatametrhshs()
     return
         
 
