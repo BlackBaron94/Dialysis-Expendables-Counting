@@ -1,25 +1,34 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jun  4 13:25:31 2025
+
+@author: Equinox
+"""
+
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox as msg
 import sqlite3
 from sqlite3 import Error
-item_list = [["25H", 0], 
-            ["21H", 0], 
-            ["19H", 0],
-            ["21M", 0],
-            ["19M", 0],
-            ["17M", 0],
-            ["FDY 210", 0],
-            ["FDY 180", 0],
-            ["FDY 150", 0],
-            ["Γραμμές & Φύσιγγες", 0],
-            ["Γραμμές Online", 0],
-            ["293", 0],
-            ["751", 0],
-            ["296", 0],
-            ["257", 0],
-            ["1.75 Ca", 0],
-            ["1.25 Ca", 0]]
+item_list = [
+    ["25H", 0], 
+    ["21H", 0], 
+    ["19H", 0],
+    ["FDY 210", 0],
+    ["FDY 180", 0],
+    ["FDY 150", 0],
+    ["21M", 0],
+    ["19M", 0],
+    ["17M", 0],
+    ["Γραμμές & Φύσιγγες", 0],
+    ["Γραμμές Online", 0],
+    ["293", 0],
+    ["751", 0],
+    ["296", 0],
+    ["257", 0],
+    ["1.75 Ca", 0],
+    ["1.25 Ca", 0]
+    ]
 
 def dbconnect(db_file):
     """
@@ -50,18 +59,20 @@ def create_db():
     my_conn.close()
     return
 
-def addItem(string):
+def addItem(string, window):
     """
     Ανανεώνει το πλήθος των αντικειμένων που καταμετρούνται.
     
     
     Args:
         string (str): Όνομα αντικειμένου προς προσθήκη.
+        window (tkinter Toplevel object): Δέχεται το παράθυρο έναρξης 
+        καταμέτρησης για να έχει πρόσβαση στη StringVar και στη μεταβλητή times
+        για τις φορές καταμέτρησης ίδιου αντικειμένου κατά συρροήν.
     
     Returns:
         None.
     """
-    global times
     # Μεταβλητή για έλεγχο φορών καταχώρησης
     for i in item_list:
         if i[0] == string:
@@ -72,137 +83,18 @@ def addItem(string):
                 item_list[10][1] += 1
     # Έλεγχος αν το τρέχον αντικείμενο είναι αυτό που καταχωρήθηκε στην
     # προηγούμενη καταχώρηση
-    if string in myStringVar.get(): 
-        times += 1 
-        text = string + " καταχωρήθηκε " + str(times) + " φορές επιτυχώς."
-        myStringVar.set(text)
+    if string in window.myStringVar.get(): 
+        window.times += 1 
+        text = string + " καταχωρήθηκε " + str(window.times) + " φορές επιτυχώς."
+        window.myStringVar.set(text)
     
     else:
         # Αρχικοποίηση μεταβλητής times
-        times = 1
+        window.times = 1
         text = string + " καταχωρήθηκε επιτυχώς."
-        myStringVar.set(text)
+        window.myStringVar.set(text)
     return
 
-def x25HPushed():
-    """
-    Συνάρτηση απόκρισης στο πάτημα κουμπιού αντικειμένου. Προσθέτει +1 στην
-    καταμέτρηση του αντικειμένου του εκάστοτε κουμπιού.
-    """
-    addItem("25H")
-    return
-    
-def x21HPushed():
-    """
-    Συνάρτηση απόκρισης στο πάτημα κουμπιού αντικειμένου. Προσθέτει +1 στην
-    καταμέτρηση του αντικειμένου του εκάστοτε κουμπιού.
-    """
-    addItem("21H")
-    return
-    
-def x19HPushed():
-    """
-    Συνάρτηση απόκρισης στο πάτημα κουμπιού αντικειμένου. Προσθέτει +1 στην
-    καταμέτρηση του αντικειμένου του εκάστοτε κουμπιού.
-    """
-    addItem("19H")
-    return
-
-def x21MPushed():
-    """
-    Συνάρτηση απόκρισης στο πάτημα κουμπιού αντικειμένου. Προσθέτει +1 στην
-    καταμέτρηση του αντικειμένου του εκάστοτε κουμπιού.
-    """
-    addItem("21M")
-    return
-
-def x19MPushed():
-    """
-    Συνάρτηση απόκρισης στο πάτημα κουμπιού αντικειμένου. Προσθέτει +1 στην
-    καταμέτρηση του αντικειμένου του εκάστοτε κουμπιού.
-    """
-    addItem("19M")
-    return
-
-def x17MPushed():
-    """
-    Συνάρτηση απόκρισης στο πάτημα κουμπιού αντικειμένου. Προσθέτει +1 στην
-    καταμέτρηση του αντικειμένου του εκάστοτε κουμπιού.
-    """
-    addItem("17M")
-    return
-    
-def FDY210Pushed():
-    """
-    Συνάρτηση απόκρισης στο πάτημα κουμπιού αντικειμένου. Προσθέτει +1 στην
-    καταμέτρηση του αντικειμένου του εκάστοτε κουμπιού.
-    """
-    addItem("FDY 210")
-    return
-
-def FDY180Pushed():
-    """
-    Συνάρτηση απόκρισης στο πάτημα κουμπιού αντικειμένου. Προσθέτει +1 στην
-    καταμέτρηση του αντικειμένου του εκάστοτε κουμπιού.
-    """
-    addItem("FDY 180")
-    return
-    
-def FDY150Pushed():
-    """
-    Συνάρτηση απόκρισης στο πάτημα κουμπιού αντικειμένου. Προσθέτει +1 στην
-    καταμέτρηση του αντικειμένου του εκάστοτε κουμπιού.
-    """
-    addItem("FDY 150")
-    return
-
-def x293Pushed():
-    """
-    Συνάρτηση απόκρισης στο πάτημα κουμπιού αντικειμένου. Προσθέτει +1 στην
-    καταμέτρηση του αντικειμένου του εκάστοτε κουμπιού.
-    """
-    addItem("293")
-    return
-
-def x751Pushed():
-    """
-    Συνάρτηση απόκρισης στο πάτημα κουμπιού αντικειμένου. Προσθέτει +1 στην
-    καταμέτρηση του αντικειμένου του εκάστοτε κουμπιού.
-    """
-    addItem("751")
-    return    
-    
-def x296Pushed():
-    """
-    Συνάρτηση απόκρισης στο πάτημα κουμπιού αντικειμένου. Προσθέτει +1 στην
-    καταμέτρηση του αντικειμένου του εκάστοτε κουμπιού.
-    """
-    addItem("296")
-    return
-
-def x257Pushed():
-    """
-    Συνάρτηση απόκρισης στο πάτημα κουμπιού αντικειμένου. Προσθέτει +1 στην
-    καταμέτρηση του αντικειμένου του εκάστοτε κουμπιού.
-    """
-    addItem("257")
-    return
-
-def x175CAPushed():
-    """
-    Συνάρτηση απόκρισης στο πάτημα κουμπιού αντικειμένου. Προσθέτει +1 στην
-    καταμέτρηση του αντικειμένου του εκάστοτε κουμπιού.
-    """
-    addItem("1.75 Ca")
-    return
-
-def x125CAPushed():
-    """
-    Συνάρτηση απόκρισης στο πάτημα κουμπιού αντικειμένου. Προσθέτει +1 στην
-    καταμέτρηση του αντικειμένου του εκάστοτε κουμπιού.
-    """
-    addItem("1.25 Ca")
-    return
     
 def enarkshKatametrhshs():
     """
@@ -212,91 +104,82 @@ def enarkshKatametrhshs():
     και τις φορές που προστέθηκε κατά συρροήν.
     """
     
-    global enarkshKatametrhshsWindow
     enarkshKatametrhshsWindow = tk.Toplevel(mainWindow)
     enarkshKatametrhshsWindow.geometry("425x400+770+220")
     enarkshKatametrhshsWindow.title("Καταμέτρηση")
+    enarkshKatametrhshsWindow.bind(
+        "<Escape>", 
+        lambda event: enarkshKatametrhshsWindow.destroy()
+        )
     
-    global myStringVar
-    myStringVar = tk.StringVar()
-    myStringVar.set("Καμία καταχώρηση")
+    # Πεδίο του παραθύρου που διατηρεί τις φορές κατά συρροήν 
+    # που πατήθηκε το ίδιο κουμπί
+    enarkshKatametrhshsWindow.times = 0
     
-    tk.Button(enarkshKatametrhshsWindow, 
-              text = "25H", 
-              font = 'Times 16', 
-              command = x25HPushed).place(x=30, y=10)
-    tk.Button(enarkshKatametrhshsWindow, 
-              text = "21H", 
-              font = 'Times 16', 
-              command = x21HPushed).place(x=30, y=60)
-    tk.Button(enarkshKatametrhshsWindow, 
-              text = "19H", 
-              font = 'Times 16', 
-              command = x19HPushed).place(x=30, y=110)
-    tk.Button(enarkshKatametrhshsWindow, 
-              text = "FDY 210", 
-              font = 'Times 16', 
-              command = FDY210Pushed).place(x=10, y=160)
-    tk.Button(enarkshKatametrhshsWindow, 
-              text = "FDY 180", 
-              font = 'Times 16', 
-              command = FDY180Pushed).place(x=10, y=210)
-    tk.Button(enarkshKatametrhshsWindow, 
-              text = "FDY 150", 
-              font = 'Times 16', 
-              command = FDY150Pushed).place(x=10, y=260)
-    tk.Button(enarkshKatametrhshsWindow, 
-              text = "21M", 
-              font = 'Times 16', 
-              command = x21MPushed).place(x=185, y=10)
-    tk.Button(enarkshKatametrhshsWindow, 
-              text = "19M", 
-              font = 'Times 16', 
-              command = x19MPushed).place(x=185, y=60)
-    tk.Button(enarkshKatametrhshsWindow, 
-              text = "17M", 
-              font = 'Times 16', 
-              command = x17MPushed).place(x=185, y=110)
-    tk.Button(enarkshKatametrhshsWindow, 
-              text = "293", 
-              font = 'Times 16', 
-              command = x293Pushed).place(x=325, y=10)
-    tk.Button(enarkshKatametrhshsWindow, 
-              text = "751", 
-              font = 'Times 16', 
-              command = x751Pushed).place(x=325, y=60)
-    tk.Button(enarkshKatametrhshsWindow, 
-              text = "296", 
-              font = 'Times 16', 
-              command = x296Pushed).place(x=325, y=110)
-    tk.Button(enarkshKatametrhshsWindow, 
-              text = "257", 
-              font = 'Times 16', 
-              command = x257Pushed).place(x=325, y=160)
-    tk.Button(enarkshKatametrhshsWindow, 
-              text = "1.75 Ca", 
-              font = 'Times 16', 
-              command = x175CAPushed).place(x=305, y=210)
-    tk.Button(enarkshKatametrhshsWindow, 
-              text = "1.25 Ca", 
-              font = 'Times 16', 
-              command = x125CAPushed).place(x=305, y=260)
+    # Η StringVar μπαίνει ως πεδίο του παραθύρου για πρόσβαση
+    # από την addItem που μεταβάλει το Label αυτό δυναμικά
+    enarkshKatametrhshsWindow.myStringVar = tk.StringVar()
+    enarkshKatametrhshsWindow.myStringVar.set("Καμία καταχώρηση")
+    
+    # Λίστα με θέσεις κουμπιών
+    button_locations = [
+        [30, 10],
+        [30, 60],
+        [30, 110],
+        [10, 160],
+        [10, 210],
+        [10, 260],
+        [185, 10],
+        [185, 60],
+        [185, 110],
+        [325, 10],
+        [325, 60],
+        [325, 110],
+        [325, 160],
+        [305, 210],
+        [305, 260]
+        ]
+    # Δείκτης προσπέλασης λίστας θέσεων κουμπιών
+    button_loc_index = 0
+    # Δημιουργία κουμπιών
+    for i in item_list:
+        # Οι Γραμμές και οι φύσιγγες προστίθενται αυτόματα από το πρόγραμμα
+        # άρα δεν χρειάζονται κουμπιά
+        if i[0] == 'Γραμμές & Φύσιγγες' or i[0] == 'Γραμμές Online':
+            continue
+        tk.Button(
+            enarkshKatametrhshsWindow,
+            text = i[0],
+            font = 'Times 16',
+            command = lambda i=i: addItem(i[0], enarkshKatametrhshsWindow)
+            ).place(
+                x=button_locations[button_loc_index][0],
+                y=button_locations[button_loc_index][1]
+                 )
+        button_loc_index +=1
+        
     tk.Label(enarkshKatametrhshsWindow, 
-             textvariable = myStringVar, 
+             textvariable = enarkshKatametrhshsWindow.myStringVar, 
              font = 'Times 16',
              justify='center').place(x=25, y=325)  
+    enarkshKatametrhshsWindow.focus_set()
+    enarkshKatametrhshsWindow.mainloop()
     return
 
 
-def printKatametrhsh():
+def printKatametrhsh(window):
     """
     Βοηθητική συνάρτηση για τη δημιουργία των στατιστικών στο παράθυρο 
     εμφάνισης καταμέτρησης.
+    
+    Args:
+        window (TopLevel object): Το παράθυρο στου οποίου το treeview
+        φορτώνονται τα δεδομένα. Απαιτείται για πρόσβαση στο attribute tree.
     """
     
     # Καταχώρηση εγγραφών στον πίνακα παρουσίασης
     for item in item_list:
-        tree.insert('',tk.END,values=item)    
+        window.tree.insert('',tk.END,values=item)    
     return
 
 
@@ -309,26 +192,35 @@ def emfanishKatametrhshs():
     """
     
     # Νέο παράθυρο
-    new = tk.Toplevel(mainWindow)
-    new.title("Πίνακας Καταμέτρησης")
-    new.geometry("500x800+700+150")
+    emfanishKatametrhshsWindow = tk.Toplevel(mainWindow)
+    emfanishKatametrhshsWindow.title("Πίνακας Καταμέτρησης")
+    emfanishKatametrhshsWindow.geometry("500x800+700+150")
+    emfanishKatametrhshsWindow.bind(
+        "<Escape>", 
+        lambda event: emfanishKatametrhshsWindow.destroy()
+        )
     # Προετοιμασία για πίνακα παρουσίασης
     style = ttk.Style()
     style.configure("mystyle.Treeview",font=('Times',16),rowheight=30)
-    global tree
-    tree = ttk.Treeview(new, 
-                        style="mystyle.Treeview", 
-                        columns=('Αντικείμενο', 
-                                 'Ποσότητα'),
-                        show='headings')
-    tree.column('Αντικείμενο', width=50)
-    tree.column('Ποσότητα', width=50)
-    tree.heading('Αντικείμενο', text = 'Αντικείμενο')
-    tree.heading('Ποσότητα', text = 'Ποσότητα')
+    
+    emfanishKatametrhshsWindow.tree = ttk.Treeview(
+        emfanishKatametrhshsWindow, 
+        style="mystyle.Treeview", 
+        columns=(
+            'Αντικείμενο', 
+            'Ποσότητα'
+            ),
+        show='headings'
+        )
+    emfanishKatametrhshsWindow.tree.column('Αντικείμενο', width=50)
+    emfanishKatametrhshsWindow.tree.column('Ποσότητα', width=50)
+    emfanishKatametrhshsWindow.tree.heading('Αντικείμενο', text = 'Αντικείμενο')
+    emfanishKatametrhshsWindow.tree.heading('Ποσότητα', text = 'Ποσότητα')
     # Καλεί τη συνάρτηση για καταχώρηση εγγραφών
-    printKatametrhsh()
-    tree.pack(fill='both',expand=1)
-    new.mainloop()        
+    printKatametrhsh(emfanishKatametrhshsWindow)
+    emfanishKatametrhshsWindow.tree.pack(fill='both',expand=1)
+    emfanishKatametrhshsWindow.focus_set()
+    emfanishKatametrhshsWindow.mainloop()        
     return
 
 
@@ -543,71 +435,79 @@ def reset_pushed():
                  message = 'Η τρέχουσα καταμέτρηση μηδενίστηκε επιτυχώς.')
     return
     
-# Δημιουργία ΒΔ αν δεν υπάρχει
-create_db()
 
-mainWindow = tk.Tk()
-mainWindow.geometry('600x500+650+150')
-mainWindow.title("Πρόγραμμα Καταμέτρησης Υλικού")
-defaultFont = 'Times 16'
 
-tk.Button(mainWindow,
-    text = 'Έναρξη καταμέτρησης', 
-    font = defaultFont, 
-    command = enarkshKatametrhshs, 
-    relief = 'groove', 
-    bd = 10).pack(fill = 'x', 
-        padx = 50, 
-        pady = 10)                  
 
-tk.Button(mainWindow, 
-          text = "Εμφάνιση καταμέτρησης", 
-          font = defaultFont,
-          command = emfanishKatametrhshs,
-          relief = 'groove',
-          bd = 10).pack(fill = 'x',
-              padx = 50,
-              pady = 10)   
-
-tk.Button(mainWindow, 
-    text = "Μηδενισμός τρέχουσας καταμέτρησης",
-    font = defaultFont,
-    command = reset_pushed,
-    relief = 'groove',
-    bd = 10).pack(fill = 'x',
-        padx = 50,
-        pady = 10)
-
-tk.Button(mainWindow, 
-          text = "Αποθήκευση καταμέτρησης", 
-          font = defaultFont,
-          command = save_button,
-          relief = 'groove',
-          bd = 10).pack(fill = 'x',
-              padx = 50,
-              pady = 10)   
-
-tk.Button(mainWindow, 
-    text = "Φόρτωση καταμέτρησης",
-    font = defaultFont,
-    command = load,
-    relief = 'groove',
-    bd = 10).pack(fill = 'x',
-        padx = 50,
-        pady = 10)
-
-tk.Button(mainWindow, 
-    text = "Έξοδος",
-    font = defaultFont,
-    command = mainWindow.destroy,
-    relief = 'groove',
-    bd = 10).pack(fill = 'x',
-        padx = 50,
-        pady = 10)
-
-tk.Label(mainWindow, 
-         text='Made by Black Baron', 
-         font = ('Old English Text MT',12),
-         justify='left').pack(side='right')
-
-mainWindow.mainloop()
+if __name__ == "__main__":
+    # Δημιουργία ΒΔ αν δεν υπάρχει
+    create_db()
+    # Δημιουργία κυρίου παραθύρου
+    mainWindow = tk.Tk()
+    mainWindow.geometry('600x500+650+150')
+    mainWindow.title("Πρόγραμμα Καταμέτρησης Υλικού")
+    defaultFont = 'Times 16'
+    
+    tk.Button(
+        mainWindow,
+        text = 'Έναρξη καταμέτρησης', 
+        font = defaultFont, 
+        command = enarkshKatametrhshs, 
+        relief = 'groove', 
+        bd = 10
+        ).pack(
+            fill = 'x', 
+            padx = 50, 
+            pady = 10
+            )                  
+    
+    tk.Button(mainWindow, 
+              text = "Εμφάνιση καταμέτρησης", 
+              font = defaultFont,
+              command = emfanishKatametrhshs,
+              relief = 'groove',
+              bd = 10).pack(fill = 'x',
+                  padx = 50,
+                  pady = 10)   
+    
+    tk.Button(mainWindow, 
+        text = "Μηδενισμός τρέχουσας καταμέτρησης",
+        font = defaultFont,
+        command = reset_pushed,
+        relief = 'groove',
+        bd = 10).pack(fill = 'x',
+            padx = 50,
+            pady = 10)
+    
+    tk.Button(mainWindow, 
+              text = "Αποθήκευση καταμέτρησης", 
+              font = defaultFont,
+              command = save_button,
+              relief = 'groove',
+              bd = 10).pack(fill = 'x',
+                  padx = 50,
+                  pady = 10)   
+    
+    tk.Button(mainWindow, 
+        text = "Φόρτωση καταμέτρησης",
+        font = defaultFont,
+        command = load,
+        relief = 'groove',
+        bd = 10).pack(fill = 'x',
+            padx = 50,
+            pady = 10)
+    
+    tk.Button(mainWindow, 
+        text = "Έξοδος",
+        font = defaultFont,
+        command = mainWindow.destroy,
+        relief = 'groove',
+        bd = 10).pack(fill = 'x',
+            padx = 50,
+            pady = 10)
+    
+    tk.Label(mainWindow, 
+             text='Made by Black Baron', 
+             font = ('Old English Text MT',12),
+             justify='left').pack(side='right')
+    
+    mainWindow.mainloop()
