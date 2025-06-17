@@ -205,7 +205,7 @@ def emfanish_katametrhshs(main_window):
     # Νέο παράθυρο
     emfanish_katametrhshs_window = tk.Toplevel(main_window)
     emfanish_katametrhshs_window.title("Πίνακας Καταμέτρησης")
-    emfanish_katametrhshs_window.geometry("500x800+700+150")
+    emfanish_katametrhshs_window.geometry("550x800+700+150")
     emfanish_katametrhshs_window.bind(
         "<Escape>", lambda event: emfanish_katametrhshs_window.destroy()
     )
@@ -221,7 +221,7 @@ def emfanish_katametrhshs(main_window):
         show="tree headings",
     )
     emfanish_katametrhshs_window.tree.column("#0", width=50)
-    emfanish_katametrhshs_window.tree.column("Αντικείμενο", width=50)
+    emfanish_katametrhshs_window.tree.column("Αντικείμενο", width=55)
     emfanish_katametrhshs_window.tree.column("Ποσότητα", width=50)
     emfanish_katametrhshs_window.tree.heading("#0", text="Επεξεργασία")
     emfanish_katametrhshs_window.tree.heading(
