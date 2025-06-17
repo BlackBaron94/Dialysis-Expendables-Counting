@@ -28,6 +28,7 @@
 * [![Python][python.org]][Python-url]
 * [![tkinter][tkinter.python]][tkinter-url]
 * [![SQLite3][sqlite3.python]][sqlite3-url]
+* [<img src="https://avatars.githubusercontent.com/u/1215332?v=4" alt="PyInstaller_Logo" width="40" />][PyInstaller-url] PyInstaller
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -147,8 +148,10 @@
 ---
 
 <div align="center">
-    <img src="https://raw.githubusercontent.com/BlackBaron94/images/main/DialysisExpendablesCountingImages/Main-Menu.jpg" alt="Main-Menu" width="500"/>
+    <img src="https://raw.githubusercontent.com/BlackBaron94/images/main/Dialysis-Expendables-Counting/Main-Menu.jpg" alt="Main-Menu" width="500"/>
 </div> 
+
+<p align="center"><b> Κύριο μενού εφαρμογής. </b></p>
 
 ---
 
@@ -157,9 +160,11 @@
 ---
 
 <div align="center">
-    <img src="https://raw.githubusercontent.com/BlackBaron94/images/main/DialysisExpendablesCountingImages/Counting-Window-None-Pressed.jpg" alt="Counting-Window-None-Pressed" width="500" style="display: inline-block;"/>
-    <img src="https://raw.githubusercontent.com/BlackBaron94/images/main/DialysisExpendablesCountingImages/Counting-Window-21H-Pressed-x-3.jpg" alt="Counting-Window-21H-Pressed-x-3" width="500" style="display: inline-block;"/>
+    <img src="https://raw.githubusercontent.com/BlackBaron94/images/main/Dialysis-Expendables-Counting/Counting-Window-None-Pressed.jpg" alt="Counting-Window-None-Pressed" width="500" style="display: inline-block;"/>
+    <img src="https://raw.githubusercontent.com/BlackBaron94/images/main/Dialysis-Expendables-Counting/Counting-Window-21H-Pressed-x-3.jpg" alt="Counting-Window-21H-Pressed-x-3" width="500" style="display: inline-block;"/>
 </div> 
+
+<p align="center"><b> Παράθυρο καταμέτρησης. </b></p>
 
 ---
 
@@ -168,8 +173,11 @@
 ---
 
 <div align="center">
-    <img src="https://raw.githubusercontent.com/BlackBaron94/images/main/DialysisExpendablesCountingImages/Counting-Result.jpg" alt="Counting-Result" width="500"/>
+    <img src="https://raw.githubusercontent.com/BlackBaron94/images/main/Dialysis-Expendables-Counting/Counting-Result.jpg" alt="Counting-Result" width="500" style="display: inline:block;"/>
+    <img src="https://raw.githubusercontent.com/BlackBaron94/images/main/Dialysis-Expendables-Counting/Counting-Result-Edit.jpg" alt="Counting-Result-Edit" width="500" style="display: inline:block;"/>
 </div> 
+
+<p align="center"><b> Εμφάνιση και επεξεργασία καταμέτρησης. </b></p>
 
 ---
 
@@ -178,9 +186,11 @@
 ---
 
 <div align="center">
-    <img src="https://raw.githubusercontent.com/BlackBaron94/images/main/DialysisExpendablesCountingImages/Reset-Counting.jpg" alt="Reset-Counting" width="500" style="display: inline-block;"/>
-    <img src="https://raw.githubusercontent.com/BlackBaron94/images/main/DialysisExpendablesCountingImages/Loading-Counting.jpg" alt="Loading-Counting" width="500" style="display: inline-block;"/>
+    <img src="https://raw.githubusercontent.com/BlackBaron94/images/main/Dialysis-Expendables-Counting/Reset-Counting.jpg" alt="Reset-Counting" width="500" style="display: inline-block;"/>
+    <img src="https://raw.githubusercontent.com/BlackBaron94/images/main/Dialysis-Expendables-Counting/Loading-Counting.jpg" alt="Loading-Counting" width="500" style="display: inline-block;"/>
 </div> 
+
+<p align="center"><b> Μηδενισμός και φόρτωση καταμέτρησης. </b> </p>
 
 ---
 
@@ -211,3 +221,4 @@ Project Link: [Dialysis Expendables Counting](https://github.com/BlackBaron94/Di
 [tkinter-url]: https://docs.python.org/3/library/tkinter.html
 [sqlite3.python]: https://img.shields.io/badge/SQLite-blue?logo=sqlite&logoColor=white
 [sqlite3-url]: https://docs.python.org/3/library/sqlite3.html
+[PyInstaller-url]: https://pyinstaller.org/
