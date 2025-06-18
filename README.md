@@ -28,7 +28,7 @@
 
 * [![Python][Python-icon]][Python-url]
 * [![tkinter][tkinter.icon]][tkinter-url]
-* [![SQLite3][sqlite3-icon]][sqlite3-url]
+* [![SQLite3][SQLite3-icon]][SQLite3-url]
 * <a href="https://pyinstaller.org/"><img src="https://raw.githubusercontent.com/BlackBaron94/images/main/PyInstaller-Logo.png" width="20" alt="PyInstaller Logo" style="vertical-align:middle; margin-right:8px;" /></a>[![PyInstaller][PyInstaller-icon]][PyInstaller-url]
 
 
@@ -227,9 +227,9 @@ This project is licensed under the MIT License – see the [LICENSE](./LICENSE) 
 
 [Python-icon]: https://img.shields.io/badge/Python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54&style=plastic
 [Python-url]: https://python.org/
-[tkinter.icon]: https://img.shields.io/badge/Frontend-tkinter-blue&style=plastic
+[tkinter.icon]: https://img.shields.io/badge/Frontend-tkinter-blue?style=plastic
 [tkinter-url]: https://docs.python.org/3/library/tkinter.html
-[sqlite3-icon]: https://img.shields.io/badge/SQLite3-blue?logo=sqlite&logoColor=white&style=plastic
-[sqlite3-url]: https://docs.python.org/3/library/sqlite3.html
+[SQLite3-icon]: https://img.shields.io/badge/SQLite3-003B57?logo=sqlite&logoColor=white&style=plastic
+[SQLite3-url]: https://docs.python.org/3/library/sqlite3.html
 [PyInstaller-icon]: https://img.shields.io/badge/PyInstaller-23364D
 [PyInstaller-url]: https://pyinstaller.org/
