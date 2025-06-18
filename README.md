@@ -27,13 +27,13 @@
 ### Τεχνολογίες και βιβλιοθήκες που χρησιμοποιήθηκαν:
 
 
-<a href="https://python.org/"> <img src="https://img.shields.io/badge/Python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54&style=plastic" alt="Python-logo" width=120px/></a>
+<a href="https://python.org/"> <img src="https://img.shields.io/badge/Python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54&style=plastic" alt="Python-logo" width=100px/></a>
 
-<a href="https://docs.python.org/3/library/tkinter.html"> <img src="https://img.shields.io/badge/Frontend-tkinter-blue?style=plastic" alt="tkinter-logo" width=160px/></a>
+<a href="https://docs.python.org/3/library/tkinter.html"> <img src="https://img.shields.io/badge/Frontend-tkinter-blue?style=plastic" alt="tkinter-logo" width=140px/></a>
 
-<a href="https://docs.python.org/3/library/sqlite3.html"> <img src="https://img.shields.io/badge/SQLite3-003B57?logo=sqlite&logoColor=white&style=plastic" alt="SQLite-Logo" width=120px/></a>
+<a href="https://docs.python.org/3/library/sqlite3.html"> <img src="https://img.shields.io/badge/SQLite3-003B57?logo=sqlite&logoColor=white&style=plastic" alt="SQLite-Logo" width=100px/></a>
 
-<a href="https://pyinstaller.org/"><img src="https://raw.githubusercontent.com/BlackBaron94/images/main/PyInstaller-Logo.png" alt="PyInstaller-Logo" width=37px/><img src="https://img.shields.io/badge/PyInstaller-23364D" alt="PyInstaller-Logo-Text" width=120px/></a>
+<a href="https://pyinstaller.org/"><img src="https://raw.githubusercontent.com/BlackBaron94/images/main/PyInstaller-Logo.png" alt="PyInstaller-Logo" width=37px/><img src="https://img.shields.io/badge/PyInstaller-23364D" alt="PyInstaller-Logo-Text" width=100px/></a>
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
