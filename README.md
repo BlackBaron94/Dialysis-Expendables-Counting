@@ -16,6 +16,7 @@
   - [Χρήση](#χρήση)
   - [Μελλοντικές Προσθήκες](#μελλοντικές-προσθήκες)
   - [Επικοινωνία](#επικοινωνία)
+  - [License](#license)
 
 ## Περιγραφή Project
 Πρόγραμμα για καταμέτρηση υλικού αιμοκάθαρσης. Το πρόγραμμα καταμετρεί φίλτρα αιμοκάθαρσης, διαλύματα 
@@ -212,6 +213,13 @@
 Γιώργος Τσολακίδης - [Linked In: Giorgos Tsolakidis](https://www.linkedin.com/in/black-baron/) - black_baron94@hotmail.com 
 
 Project Link: [Dialysis Expendables Counting](https://github.com/BlackBaron94/DialysisExpendablesCounting)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## License
+
+
+This project is licensed under the MIT License – see the [LICENSE](./LICENSE) file for details.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
